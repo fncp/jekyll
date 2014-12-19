@@ -34,7 +34,7 @@ module Jekyll
     #
     # Returns the sorted array of docs.
     def read
-      filtered_entries.each do |file_path|
+      Parallel.each(filtered_entries) do |file_path|
         full_path = collection_dir(file_path)
         next if File.directory?(full_path)
         if Utils.has_yaml_header? full_path
