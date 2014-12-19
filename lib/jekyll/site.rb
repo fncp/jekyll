@@ -151,6 +151,7 @@ module Jekyll
       read_directories
       read_data(config['data_source'])
       read_collections
+      each_site_file { |doc| doc.read }
     end
 
     # Recursively traverse directories to find posts, pages and static files
@@ -169,14 +170,14 @@ module Jekyll
       posts.sort!
       limit_posts! if limit_posts > 0 # limit the posts if :limit_posts option is set
 
-      Parallel.each(entries) do |f|
+      entries.each do |f|
         f_abs = in_source_dir(base, f)
         if File.directory?(f_abs)
           f_rel = File.join(dir, f)
           read_directories(f_rel) unless dest.sub(/\/$/, '') == f_abs
         elsif Utils.has_yaml_header?(f_abs)
           page = Page.new(self, source, dir, f)
-          pages << page if publisher.publish?(page)
+          pages << page
         else
           static_files << StaticFile.new(self, source, dir, f)
         end

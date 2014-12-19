@@ -54,6 +54,9 @@ module Jekyll
 
       self.categories = dir.downcase.split('/').reject { |x| x.empty? }
       process(name)
+    end
+
+    def read
       read_yaml(@base, name)
 
       data.default_proc = proc do |hash, key|

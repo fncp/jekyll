@@ -1,10 +1,3 @@
-require 'simplecov'
-require 'simplecov-gem-adapter'
-SimpleCov.start('gem') do
-  add_filter "/vendor/bundle"
-  add_filter "/vendor/gem"
-end
-
 require 'rubygems'
 require 'test/unit'
 require 'ostruct'

@@ -30,6 +30,9 @@ module Jekyll
 
 
       process(name)
+    end
+
+    def read
       read_yaml(File.join(base, dir), name)
 
       data.default_proc = proc do |hash, key|
