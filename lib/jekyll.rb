@@ -27,6 +27,7 @@ require 'safe_yaml/load'
 require 'liquid'
 require 'kramdown'
 require 'colorator'
+require 'parallel'
 
 SafeYAML::OPTIONS[:suppress_warnings] = true
 

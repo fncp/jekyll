@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('mercenary', "~> 0.3.3")
   s.add_runtime_dependency('safe_yaml', "~> 1.0")
   s.add_runtime_dependency('colorator', "~> 0.1")
+  s.add_runtime_dependency('parallel',  "~> 1.3")
 
   # Before 3.0 drops, phase the following gems out as dev dependencies
   # and gracefully handle their absence.

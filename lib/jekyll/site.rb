@@ -169,7 +169,7 @@ module Jekyll
       posts.sort!
       limit_posts! if limit_posts > 0 # limit the posts if :limit_posts option is set
 
-      entries.each do |f|
+      Parallel.each(entries) do |f|
         f_abs = in_source_dir(base, f)
         if File.directory?(f_abs)
           f_rel = File.join(dir, f)
@@ -246,7 +246,7 @@ module Jekyll
         Dir['*.{yaml,yml,json,csv}'] + Dir['*'].select { |fn| File.directory?(fn) }
       end
 
-      entries.each do |entry|
+      Parallel.each(entries) do |entry|
         path = in_source_dir(dir, entry)
         next if File.symlink?(path) && safe
 
@@ -475,7 +475,7 @@ module Jekyll
 
     def each_site_file
       %w(posts pages static_files docs_to_write).each do |type|
-        send(type).each do |item|
+        Parallel.each(send(type)) do |item|
           yield item
         end
       end
