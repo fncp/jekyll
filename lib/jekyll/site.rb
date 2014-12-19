@@ -195,7 +195,7 @@ module Jekyll
     def read_posts(dir)
       posts = read_content(dir, '_posts', Post)
 
-      posts.each do |post|
+      Parallel.each(posts) do |post|
         aggregate_post_info(post) if publisher.publish?(post)
       end
     end
@@ -209,7 +209,7 @@ module Jekyll
     def read_drafts(dir)
       drafts = read_content(dir, '_drafts', Draft)
 
-      drafts.each do |draft|
+      Parallel.each(drafts) do |draft|
         if draft.published?
           aggregate_post_info(draft)
         end
@@ -219,9 +219,7 @@ module Jekyll
     def read_content(dir, magic_dir, klass)
       get_entries(dir, magic_dir).map do |entry|
         klass.new(self, source, dir, entry) if klass.valid?(entry)
-      end.reject do |entry|
-        entry.nil?
-      end
+      end.compact
     end
 
     # Read and parse all yaml files under <source>/<dir>
@@ -268,7 +266,7 @@ module Jekyll
     #
     # Returns nothing.
     def read_collections
-      collections.each do |_, collection|
+      Parallel.each(collections) do |_, collection|
         collection.read unless collection.label.eql?("data")
       end
     end
