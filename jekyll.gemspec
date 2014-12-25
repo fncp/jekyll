@@ -64,5 +64,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('jekyll_test_plugin_malicious')
   s.add_development_dependency('rouge', '~> 1.7')
   s.add_development_dependency('minitest') if RUBY_PLATFORM =~ /cygwin/
-  s.add_development_dependency('test-unit') if RUBY_PLATFORM =~ /cygwin/
+  s.add_development_dependency('test-unit') if RUBY_PLATFORM =~ /cygwin/ || RUBY_VERSION.start_with?("2.2")
 end
